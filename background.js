@@ -25,7 +25,7 @@ const updateBlockedWebsites = async () => {
 
       const rules = blockedWebsites.map((site, index) => {
       const isActiveDay = site.isAllDays || site.days.includes(currentDay);
-      const isActiveTime = currentTime >= site.startTime && currentTime <= site.endTime;
+      const isActiveTime = site.isBlock24h || currentTime >= site.startTime && currentTime <= site.endTime;
       const isBlocked = site.isAlwaysBlocked || (isActiveDay && isActiveTime)
 
       if (isBlocked) {
@@ -39,7 +39,7 @@ const updateBlockedWebsites = async () => {
           }
         };
       }
-      return null; // If the rule is not active, return null
+      return null;
     })
     .filter(rule => rule !== null);
 
@@ -47,12 +47,6 @@ const updateBlockedWebsites = async () => {
         chrome.declarativeNetRequest.updateDynamicRules({
           addRules: rules
         }, resolve);
-      });
-
-      const existingRules2 = await new Promise((resolve) => {
-        chrome.declarativeNetRequest.getDynamicRules((rules) => {
-          resolve(rules);
-        });
       });
   };
   
