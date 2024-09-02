@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Website Blocker</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Website Blocker</h1>
+    <form id="block-form">
+      <label for="url">Website URL:</label>
+      <input type="text" id="url" name="url" required />
+      </br>
+      <label>Days of the Week:</label>
+      <div id="days">
+        <label><input type="checkbox" name="days" value="0"> Sunday</label><br>
+        <label><input type="checkbox" name="days" value="1"> Monday</label><br>
+        <label><input type="checkbox" name="days" value="2"> Tuesday</label><br>
+        <label><input type="checkbox" name="days" value="3"> Wednesday</label><br>
+        <label><input type="checkbox" name="days" value="4"> Thursday</label><br>
+        <label><input type="checkbox" name="days" value="5"> Friday</label><br>
+        <label><input type="checkbox" name="days" value="6"> Saturday</label>
+      </div>
+
+      <br/>
+
+      <label for="startTime">Start Time:</label>
+      <input type="time" id="startTime" name="startTime" required />
+
+      <br/>
+
+      <label for="endTime">End Time:</label>
+      <input type="time" id="endTime" name="endTime" required />
+
+      </br>
+
+      <button type="submit">Block</button>
+    </form>
+    <ul id="blocked-websites"></ul> <!-- List for blocked websites -->
+    <script src="popup.js"></script>
+  </body>
+</html>
