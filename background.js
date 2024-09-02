@@ -23,11 +23,12 @@ const updateBlockedWebsites = async () => {
     const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes(); // Time in minutes
 
 
-    const rules = blockedWebsites.map((site, index) => {
-      const isActiveDay = site.days.includes(currentDay);
+      const rules = blockedWebsites.map((site, index) => {
+      const isActiveDay = site.isAllDays || site.days.includes(currentDay);
       const isActiveTime = currentTime >= site.startTime && currentTime <= site.endTime;
+      const isBlocked = site.isAlwaysBlocked || (isActiveDay && isActiveTime)
 
-      if (isActiveDay && isActiveTime) {
+      if (isBlocked) {
         return {
           id: index + 1,
           priority: 1,
@@ -53,7 +54,6 @@ const updateBlockedWebsites = async () => {
           resolve(rules);
         });
       });
-      console.log("existingRules2", existingRules2)
   };
   
   chrome.storage.onChanged.addListener((changes, area) => {
